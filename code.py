@@ -60,6 +60,14 @@ for col in feature_columns[:10]:  # limit to first 10 to keep it light
     input_data[col] = st.number_input(f"{col}", min_value=0, max_value=1, value=0)
 
 if st.button("Predict"):
-    input_df = pd.DataFrame([input_data])
-    prediction = model.predict(input_df)
+    # Create full input with all feature columns set to 0
+    full_input = pd.DataFrame(0, index=[0], columns=feature_columns)
+
+    # Fill in the user-provided values for the first 10 features
+    for col, val in input_data.items():
+        if col in full_input.columns:
+            full_input.at[0, col] = val
+
+    # Predict
+    prediction = model.predict(full_input)
     st.success(f"Predicted Mental Disorder: {prediction[0]}")
