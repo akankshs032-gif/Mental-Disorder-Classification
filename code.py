@@ -11,7 +11,7 @@ st.write('This app predicts mental disorders based on various symptoms using a D
 # Function to load and preprocess data
 @st.cache_data
 def load_and_preprocess_data():
-    df = pd.read_csv('/content/Dataset-Mental-Disorders.csv')
+    df = pd.read_csv('Dataset-Mental-Disorders.csv')
 
     # Drop 'Patient Number'
     df.drop('Patient Number', axis=1, inplace=True)
